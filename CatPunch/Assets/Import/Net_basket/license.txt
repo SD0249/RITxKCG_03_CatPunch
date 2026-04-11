@@ -1,0 +1,11 @@
+Model Information:
+* title:	Net basket
+* source:	https://sketchfab.com/3d-models/net-basket-279d48d312a546618c5d21fd95128c7b
+* author:	Second Studio (https://sketchfab.com/kayaaku)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Net basket" (https://sketchfab.com/3d-models/net-basket-279d48d312a546618c5d21fd95128c7b) by Second Studio (https://sketchfab.com/kayaaku) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
