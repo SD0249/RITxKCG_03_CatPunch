@@ -4,20 +4,18 @@ public class PlayerMovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-
-    private bool grounded = true;
     private CharacterController characterController;
     private Vector2 moveInput;
     private Vector3 velocity;
+    private Vector3 forward;
+    private Vector3 right;
+    private Vector3 up;
 
     //movement
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -9.8f;
-
-    //ground check
-    [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float checkRadius = 0.2f;
+    [SerializeField] private GameObject fpCam;
 
     void Start()
     {
@@ -40,10 +38,26 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        transform.Rotate(0, lookInput.x * Time.deltaTime * 100f, 0);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        forward = fpCam.transform.forward;
+        right = fpCam.transform.right;
+        up = fpCam.transform.up;
+
+        forward.Normalize();
+        right.Normalize();
+        up.Normalize();
+
+        //Vector3 move = new Vector3(moveInput.x * forward.x, 0, moveInput.y);
+        Vector3 move = (forward * moveInput.y) + (right * moveInput.x);
         characterController.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
