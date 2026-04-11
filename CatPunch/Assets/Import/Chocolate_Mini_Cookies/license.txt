@@ -1,0 +1,8 @@
+Model Information:
+* title:	Chocolate Mini Cookies
+* source:	https://sketchfab.com/3d-models/chocolate-mini-cookies-b841c851ac974887a65c1f6fcb7d13d2
+* author:	TiraArt (https://sketchfab.com/TiraArt)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
