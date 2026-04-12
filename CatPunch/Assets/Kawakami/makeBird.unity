@@ -215,9 +215,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 562488882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63d3e70b8b8c76148b0fc1ce03fb6757, type: 3}
+  m_Script: {fileID: 11500000, guid: e561bb0a3fadaff44b09f90e56ebada6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::test
+  m_EditorClassIdentifier: Assembly-CSharp::StageManager
   timeLimit: 60
 --- !u!1 &786913126
 GameObject:
@@ -447,7 +447,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1354754032
+--- !u!1 &1427471634
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,38 +455,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1354754034}
-  - component: {fileID: 1354754033}
+  - component: {fileID: 1427471636}
+  - component: {fileID: 1427471635}
   m_Layer: 0
-  m_Name: cookietest
+  m_Name: Cookie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1354754033
+--- !u!114 &1427471635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354754032}
+  m_GameObject: {fileID: 1427471634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a295fbaa4abeee42bccfc85e3a78b29, type: 3}
+  m_Script: {fileID: 11500000, guid: 02bce4deda766d243bded339b502d6ca, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::cookietest
-  initCookieCount: 0
---- !u!4 &1354754034
+  m_EditorClassIdentifier: Assembly-CSharp::Cookie
+  totalCount: 0
+--- !u!4 &1427471636
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354754032}
+  m_GameObject: {fileID: 1427471634}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.82542, y: 1.92, z: 1.82542}
+  m_LocalPosition: {x: 1.82542, y: 0, z: 1.82542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -718,4 +718,4 @@ SceneRoots:
   - {fileID: 562488884}
   - {fileID: 957343120}
   - {fileID: 1572968813}
-  - {fileID: 1354754034}
+  - {fileID: 1427471636}
