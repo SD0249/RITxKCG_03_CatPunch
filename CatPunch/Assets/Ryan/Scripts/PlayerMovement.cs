@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 up;
     private float attackRange = 1f;
     private bool isSprinting = false;
-    private bool isMoving = false;
     private bool tired = false;
 
     //movement
@@ -39,22 +38,16 @@ public class PlayerMovement : MonoBehaviour
         catAnimation.SetBool("IsIdle", true);
     }
 
+    //receiving input to move
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        isMoving = true;
-        if (context.canceled)
-        {
-            isMoving = false;
-        }
-        //Debug.Log($"Move Input: {moveInput}");
-        //Debug.Log("Received input");
     }
 
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        //Debug.Log($"Jumping: {context.performed} - Is Grounded: {characterController.isGrounded}");
+        
         if (context.performed && characterController.isGrounded)
         {
             Debug.Log("Jump initiated");
@@ -70,15 +63,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
+        //saves the initial position of the head
         float originalHeadHeight = head.transform.localPosition.y;
         if (context.performed && characterController.isGrounded)
         {
-            
+            //halving the height of the head to new crouch position
             head.transform.localPosition = new Vector3(head.transform.localPosition.x, originalHeadHeight/0.5f, head.transform.localPosition.z);
             speed = 2.5f; // Reduce speed when crouching
         }
         else if (context.canceled)
         {
+            //multiplying head height by 2 to return to original position
             head.transform.localPosition = new Vector3(head.transform.localPosition.x, originalHeadHeight/2, head.transform.localPosition.z);
             speed = 5f; // Reset speed when standing up
         }
@@ -88,8 +83,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
+            //plays punch animation
             catAnimation.SetTrigger("Punch");
-            Debug.Log("Attack called!");
+
+            //checks each enemy hit in attack range
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
             foreach (Collider enemy in hitEnemies)
             {
@@ -103,14 +100,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed && !tired)
         {
-            Debug.Log("Sprinting!");
             isSprinting = true;
         }
         else if (context.canceled)
         {
-            Debug.Log("Stopped sprinting!");
             isSprinting = false;
-            speed = 5f;
+            speed = 5f; //resetting speed
             StartCoroutine(RegenerateStamina());
         }
     }
@@ -136,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //getting camera position
         forward = fpCam.transform.forward;
         right = fpCam.transform.right;
         up = fpCam.transform.up;
@@ -144,16 +140,15 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
         up.Normalize();
 
+        //checking if sprinting and updating speed and stamina accordingly
         if (isSprinting)
         {
-            catAnimation.SetBool("IsSprinting", true);
-            speed = 10f;
-            Debug.Log($"Current stamina: {stamina}");
+            speed = speed * 2; //doubling base speed
             stamina -= Time.deltaTime * 10f; // Decrease stamina while sprinting
             SetStamina(stamina);
+            //when running out of energy
             if (stamina <= 0)
             {
-                catAnimation.SetBool("IsSprinting", false);
                 tired = true;
                 isSprinting = false;
                 stamina = 0;
@@ -167,22 +162,8 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
-        transform.rotation = fpCam.transform.rotation;
 
-        //if (isMoving)
-        //{
-        //    catAnimation.SetBool("IsWalking", true);
-        //}
-        //else if (!isMoving)
-        //{
-        //    catAnimation.SetBool("IsIdle", true);
-        //}
-        //else if (isSprinting)
-        //{
-        //    catAnimation.SetBool("IsSprinting", true);
-        //}
-        
-        
-        
+        //making cat always face camera
+        transform.rotation = fpCam.transform.rotation;        
     }
 }
