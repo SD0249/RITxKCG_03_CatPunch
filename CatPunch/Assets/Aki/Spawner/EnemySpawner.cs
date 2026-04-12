@@ -54,7 +54,6 @@ public class EnemySpawner : MonoBehaviour
             TrySpawn(runtime);
             runtime.Timer = 0f;
             runtime.NextInterval = runtime.Rule.GetNextSpawnInterval();
-
         }
     }
 

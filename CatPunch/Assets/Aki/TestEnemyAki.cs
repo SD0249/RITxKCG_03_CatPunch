@@ -9,7 +9,7 @@ public class TestEnemyAki : MonoBehaviour, IDespawnNotifier
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        despawnTimer = new LimitTimer(30f);
+        despawnTimer = new LimitTimer(1f);
         despawnTimer.OnFinished += () =>
         {
             OnDespawn?.Invoke();

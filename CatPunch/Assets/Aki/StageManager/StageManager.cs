@@ -73,7 +73,7 @@ public class StageManager : MonoBehaviour
 
     private void OnTimeLimitReached()
     {
-        GameClear(); 
+        GameClear();
     }
 
     private void GameClear()
@@ -105,7 +105,7 @@ public class StageManager : MonoBehaviour
     /// <returns></returns>
     public Cookie GetNearestCookie(Vector3 pos)
     {
-        if(cookies.Count <= 0)
+        if (cookies.Count <= 0)
         {
             return null;
         }
@@ -116,9 +116,14 @@ public class StageManager : MonoBehaviour
 
         for (int i = 0; i < cookies.Count; i++)
         {
+            if (cookies[i].StolenCount >= cookies[i].TotalCount)
+            {
+                continue;
+            }
+
             float distance = (cookies[i].transform.position - pos).sqrMagnitude;
 
-            if(distance < minDistance)
+            if (distance < minDistance)
             {
                 minDistance = distance;
                 nearest = cookies[i];
@@ -141,20 +146,16 @@ public class StageManager : MonoBehaviour
 
     public void StolenCookie()
     {
-        int totalCookie = 0;
-        int stolenCookie = 0;
-
-        // 合計のクッキー量と、盗まれたクッキー量を取得
-        for (int i = 0;i < cookies.Count;i++)
+        // クッキーが1つでも空じゃなければ終了
+        for (int i = 0; i < cookies.Count; i++)
         {
-            totalCookie += cookies[i].TotalCount;
-            stolenCookie += cookies[i].StolenCount;
+            if (!cookies[i].IsEmpty)
+            {
+                return;
+            }
         }
 
-        // 全てのクッキーが盗まれたら負け
-        if (stolenCookie >= totalCookie)
-        {
-            GameOver();
-        }
+        // 全て空ならゲームオーバー
+        GameOver();
     }
 }
