@@ -610,13 +610,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   spawnDataList:
   - Prefab: {fileID: 4624875536566377830, guid: a6f9a6bb6ad3d7c4187cb47952d981bd, type: 3}
-    BaseSpawnInterval: 2
-    MaxSpawnCount: 5
-    Type: 0
-  - Prefab: {fileID: 6632151307319504911, guid: dda80960fd5d2fa4391594d184eb82bf, type: 3}
-    BaseSpawnInterval: 3
+    RatPrefabs: []
     MaxSpawnCount: 5
     Type: 1
+  - Prefab: {fileID: 0}
+    RatPrefabs:
+    - Prefab: {fileID: 6632151307319504911, guid: dda80960fd5d2fa4391594d184eb82bf, type: 3}
+      Probability: 50
+    - Prefab: {fileID: 6632151307319504911, guid: dda80960fd5d2fa4391594d184eb82bf, type: 3}
+      Probability: 30
+    - Prefab: {fileID: 6632151307319504911, guid: dda80960fd5d2fa4391594d184eb82bf, type: 3}
+      Probability: 20
+    MaxSpawnCount: 15
+    Type: 0
   spawnAreaX: 10
   spawnAreaZ: 10
 --- !u!1 &1625813151

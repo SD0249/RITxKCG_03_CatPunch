@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// 敵の生成種類
@@ -17,9 +18,20 @@ public class EnemySpawnData
 {
     public GameObject Prefab;
 
-    public float BaseSpawnInterval;
+    public List<RatPrefab> RatPrefabs;
 
     public int MaxSpawnCount;
 
     public SpawnerType Type;
+}
+
+/// <summary>
+/// ネズミのプレハブ管理
+/// </summary>
+[System.Serializable]
+public class RatPrefab
+{
+    public GameObject Prefab;
+
+    public float Probability;
 }
