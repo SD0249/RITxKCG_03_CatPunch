@@ -3,24 +3,59 @@ using UnityEngine;
 public class Cookie : MonoBehaviour
 {
     [SerializeField]
-    private int initCookieCount;
+    private int totalCount;
 
-    public int CookieRemaining { get; private set; }
+    public int AvailableCount { get; private set; }
 
+    private int reservedCount;
 
+    /// <summary>
+    /// 完全に盗まれたカウントの取得
+    /// </summary>
+    public int StolenCount => totalCount - AvailableCount - reservedCount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CookieRemaining = initCookieCount;
+        AvailableCount = totalCount;
+
+        reservedCount = 0;
 
         // StageManagerに自身を登録
         StageManager.Instance.AddCookie(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool TryReserve()
     {
-        
+        if(AvailableCount <= 0)
+        {
+            return false;
+        }
+
+        AvailableCount--;
+        reservedCount++;
+
+        return true;
+    }
+
+    public void Confirm()
+    {
+        if(reservedCount <= 0)
+        {
+            return;
+        }
+
+        reservedCount--;
+    }
+
+    public void Cancel()
+    {
+        if (reservedCount <= 0)
+        {
+            return;
+        }
+
+        reservedCount--;
+        AvailableCount++;
     }
 }
