@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Bird : MonoBehaviour,//Idespaなんたら
+public class Bird : MonoBehaviour, IDespawnNotifier
 {
-    //パブリックibenntosisutemu
+    public event System.Action OnDespawn;
     [SerializeField]
     private float moveSpeed = 3.0f;
 
@@ -21,7 +21,7 @@ public class Bird : MonoBehaviour,//Idespaなんたら
     void Start()
     {
        Startpos = transform.position;
-        var list = GameManager.Instance.cookieList;
+        var list = test.Instance.CookiesList;
         if (list != null && list.Count > 0)
         { 
             TargetCookie = list[Random.Range(0, list.Count)].transform;
@@ -106,7 +106,7 @@ public class Bird : MonoBehaviour,//Idespaなんたら
         );
         transform.LookAt(Startpos);
         if (Vector3.Distance(transform.position, Startpos) < 0.5f)
-        {   //Ondesponみたいなの
+        {   OnDespawn?.Invoke();
             // クッキーを持ち帰った後の処理
             Destroy(gameObject); // 鳥を削除
         }
