@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e561bb0a3fadaff44b09f90e56ebada6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  timeLimit: 15
+  timeLimit: 60
 --- !u!4 &438728016
 Transform:
   m_ObjectHideFlags: 0
@@ -611,7 +611,7 @@ MonoBehaviour:
   spawnDataList:
   - Prefab: {fileID: 4624875536566377830, guid: a6f9a6bb6ad3d7c4187cb47952d981bd, type: 3}
     RatPrefabs: []
-    MaxSpawnCount: 5
+    MaxSpawnCount: 8
     Type: 1
   - Prefab: {fileID: 0}
     RatPrefabs:
@@ -621,7 +621,7 @@ MonoBehaviour:
       Probability: 30
     - Prefab: {fileID: 6632151307319504911, guid: dda80960fd5d2fa4391594d184eb82bf, type: 3}
       Probability: 20
-    MaxSpawnCount: 15
+    MaxSpawnCount: 25
     Type: 0
   spawnAreaX: 10
   spawnAreaZ: 10

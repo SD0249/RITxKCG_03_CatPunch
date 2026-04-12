@@ -38,13 +38,13 @@ public class RatSpawnRule : ISpawnRule
 
         var timer = StageManager.Instance.Timer;
 
-        float limit = timer.timeLimit - timer.currentTime;
+        float elapsed = timer.timeLimit - timer.currentTime;
 
-        if (limit < spawnValue.SecondLevelTime)
+        if (elapsed < spawnValue.SecondLevelTime)
         {
             nextInterval = Random.Range(spawnValue.FirstLevelMinInterval,spawnValue.FirstLevelMaxInterval);
         }
-        else if (limit < spawnValue.ThirdLevelTime)
+        else if (elapsed < spawnValue.ThirdLevelTime)
         {
             nextInterval = Random.Range(spawnValue.SecondLevelMinInterval,spawnValue.SecondLevelMaxInterval);
         }
@@ -144,16 +144,16 @@ public class RatSpawnValue
     {
         FirstLevelMinInterval = 3.0f;
         FirstLevelMaxInterval = 4.0f;
-        FirstLevelMaxSpawnNum = 3;
+        FirstLevelMaxSpawnNum = 1;
 
         SecondLevelTime = 15.0f;
         SecondLevelMinInterval = 2.0f;
         SecondLevelMaxInterval = 3.0f;
-        SecondLevelMaxSpawnNum = 4;
+        SecondLevelMaxSpawnNum = 2;
 
         ThirdLevelTime = 40.0f;
         ThirdLevelMinInterval = 1.0f;
         ThirdLevelMaxInterval = 2.0f;
-        ThirdLevelMaxSpawnNum = 5;
+        ThirdLevelMaxSpawnNum = 3;
     }
 }

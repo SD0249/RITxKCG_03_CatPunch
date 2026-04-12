@@ -16,6 +16,11 @@ public class Cookie : MonoBehaviour
     /// </summary>
     public int StolenCount => totalCount - AvailableCount - reservedCount;
 
+    public bool IsEmpty { get; private set; }
+
+    [SerializeField]
+    private GameObject cookieModel;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +30,8 @@ public class Cookie : MonoBehaviour
 
         // StageManagerに自身を登録
         StageManager.Instance.AddCookie(this);
+
+        IsEmpty = false;
     }
 
     public bool TryReserve()
@@ -48,6 +55,14 @@ public class Cookie : MonoBehaviour
         }
 
         reservedCount--;
+
+        // クッキーが全て盗まれれば空状態に
+        if(StolenCount >= totalCount)
+        {
+            IsEmpty = true;
+
+            cookieModel.SetActive(false);
+        }
 
         StageManager.Instance.StolenCookie();
     }
