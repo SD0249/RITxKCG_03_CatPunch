@@ -5,6 +5,8 @@ public class Cookie : MonoBehaviour
     [SerializeField]
     private int totalCount;
 
+    public int TotalCount => totalCount;
+
     public int AvailableCount { get; private set; }
 
     private int reservedCount;
@@ -46,6 +48,8 @@ public class Cookie : MonoBehaviour
         }
 
         reservedCount--;
+
+        StageManager.Instance.StolenCookie();
     }
 
     public void Cancel()

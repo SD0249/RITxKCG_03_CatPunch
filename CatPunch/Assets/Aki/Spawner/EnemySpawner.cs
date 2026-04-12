@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private float spawnAreaX;
-    
+
     [SerializeField]
     private float spawnAreaZ;
 
@@ -69,10 +69,10 @@ public class EnemySpawner : MonoBehaviour
         switch (data.Type)
         {
             case SpawnerType.RAT:
-                return new RatSpawnRule(data.BaseSpawnInterval);
+                return new RatSpawnRule();
 
             case SpawnerType.BIRD:
-                return new BirdSpawnRule(data.BaseSpawnInterval);
+                return new BirdSpawnRule();
 
             default:
                 throw new System.Exception("Unknown enemy type");
@@ -81,39 +81,92 @@ public class EnemySpawner : MonoBehaviour
 
     private void TrySpawn(SpawnRuntime runtime)
     {
-        // 最大数になってるならスポーンさせない
-        if (runtime.ActiveCount >= runtime.Data.MaxSpawnCount)
+        // 生成回数を取得
+        var spawnNum = runtime.Rule.GetNextSpawnNum();
+
+        for (int i = 0; i < spawnNum; i++)
         {
-            return;
-        }
-
-        // プールから取得
-        var obj = enemyPool.Get(runtime.Data.Prefab);
-
-        // 生成位置を決定
-        obj.transform.position = spawnPointProvider
-            .GetRandomSpawnPoint(runtime.Data.Type == SpawnerType.BIRD);
-
-        // デスポーン通知インターフェースの取得
-        var notifier = obj.GetComponent<IDespawnNotifier>();
-
-        // デスポーン通知インターフェースがあれば、スポーン数の管理とプールへの返却を登録
-        if (notifier != null)
-        {
-            void OnDespawnHndler()
+            // 最大数になってるならスポーンさせない
+            if (runtime.ActiveCount >= runtime.Data.MaxSpawnCount)
             {
-                // アクティブ数を減らす
-                runtime.ActiveCount--;
+                return;
+            }
 
-                enemyPool.Return(runtime.Data.Prefab, obj);
-            
-                notifier.OnDespawn -= OnDespawnHndler;
-            };
+            GameObject prefab;
 
-            notifier.OnDespawn += OnDespawnHndler;
+            // プレハブの取得
+            if (runtime.Data.Type == SpawnerType.RAT)
+            {
+                prefab = GetRandomRat(runtime.Data.RatPrefabs);
+            }
+            else
+            {
+                prefab = runtime.Data.Prefab;
+            }
+
+            // プールから取得
+            var obj = enemyPool.Get(prefab);
+
+            // 生成位置を決定
+            obj.transform.position = spawnPointProvider
+                .GetRandomSpawnPoint(runtime.Data.Type == SpawnerType.BIRD);
+
+            // デスポーン通知インターフェースの取得
+            var notifier = obj.GetComponent<IDespawnNotifier>();
+
+            // デスポーン通知インターフェースがあれば、スポーン数の管理とプールへの返却を登録
+            if (notifier != null)
+            {
+                void OnDespawnHndler()
+                {
+                    // アクティブ数を減らす
+                    runtime.ActiveCount--;
+
+                    enemyPool.Return(runtime.Data.Prefab, obj);
+
+                    notifier.OnDespawn -= OnDespawnHndler;
+                }
+                ;
+
+                notifier.OnDespawn += OnDespawnHndler;
+            }
+
+            // アクティブ数を増やす
+            runtime.ActiveCount++;
+        }
+    }
+
+    /// <summary>
+    /// ランダムなネズミのプレハブを取得
+    /// </summary>
+    /// <param name="list">使用するネズミリスト</param>
+    /// <returns></returns>
+    private GameObject GetRandomRat(List<RatPrefab> list)
+    {
+        float totalProb = 0.0f;
+
+        // 各ネズミの確率を加算
+        for (int i = 0; i < list.Count; i++)
+        {
+            totalProb += list[i].Probability;
         }
 
-        // アクティブ数を増やす
-        runtime.ActiveCount++;
+        // ランダムな値を取得
+        float rand = Random.value * totalProb;
+
+        float current = 0.0f;
+
+        // 値の範囲にあるプレハブを返す
+        for (int i = 0; i < list.Count; i++)
+        {
+            current += list[i].Probability;
+
+            if (rand <= current)
+            {
+                return list[i].Prefab;
+            }
+        }
+
+        return list[0].Prefab;
     }
 }

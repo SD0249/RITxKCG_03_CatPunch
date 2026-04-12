@@ -33,6 +33,22 @@ public class StageManager : MonoBehaviour
     [Tooltip("クッキーのリスト CookiesList")]
     private List<Cookie> cookies;
 
+    /// <summary>
+    /// 鳥がクッキーを盗んだ数
+    /// </summary>
+    private int birdStoleNum;
+
+    /// <summary>
+    /// 鳥が盗んだクッキーを加算(Add BirdStoleNum)
+    /// </summary>
+    public void BirdStole() => birdStoleNum++;
+
+    /// <summary>
+    /// 鳥が盗んだクッキーの数を取得
+    /// </summary>
+    /// <returns>クッキーの数</returns>
+    public int GetBirdStoleNum() => birdStoleNum;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +56,8 @@ public class StageManager : MonoBehaviour
         Timer = new LimitTimer(timeLimit);
         Timer.OnFinished += OnTimeLimitReached;
         Timer.Start();
+
+        birdStoleNum = 0;
     }
 
     // Update is called once per frame
@@ -55,7 +73,17 @@ public class StageManager : MonoBehaviour
 
     private void OnTimeLimitReached()
     {
-        // GameClear 
+        GameClear(); 
+    }
+
+    private void GameClear()
+    {
+
+    }
+
+    private void GameOver()
+    {
+
     }
 
     /// <summary>
@@ -70,6 +98,11 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 最も近いクッキー皿を取得
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
     public Cookie GetNearestCookie(Vector3 pos)
     {
         if(cookies.Count <= 0)
@@ -95,10 +128,33 @@ public class StageManager : MonoBehaviour
         return nearest;
     }
 
+    /// <summary>
+    /// ランダムなクッキー皿を取得(現在未使用)
+    /// </summary>
+    /// <returns></returns>
     public Cookie GetRandomCookie()
     {
         int rand = Random.Range(0, cookies.Count);
 
         return cookies[rand];
+    }
+
+    public void StolenCookie()
+    {
+        int totalCookie = 0;
+        int stolenCookie = 0;
+
+        // 合計のクッキー量と、盗まれたクッキー量を取得
+        for (int i = 0;i < cookies.Count;i++)
+        {
+            totalCookie += cookies[i].TotalCount;
+            stolenCookie += cookies[i].StolenCount;
+        }
+
+        // 全てのクッキーが盗まれたら負け
+        if (stolenCookie >= totalCookie)
+        {
+            GameOver();
+        }
     }
 }
