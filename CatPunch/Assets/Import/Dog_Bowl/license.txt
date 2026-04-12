@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dog Bowl
+* source:	https://sketchfab.com/3d-models/dog-bowl-3fc962f14b994f81a5924f9b100dcb2f
+* author:	Zambur (https://sketchfab.com/Zambur)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dog Bowl" (https://sketchfab.com/3d-models/dog-bowl-3fc962f14b994f81a5924f9b100dcb2f) by Zambur (https://sketchfab.com/Zambur) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
