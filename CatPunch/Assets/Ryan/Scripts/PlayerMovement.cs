@@ -103,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Stopped sprinting!");
             isSprinting = false;
             speed = 5f;
-            // Optionally, you can implement stamina regeneration here
             StartCoroutine(RegenerateStamina());
         }
     }
@@ -156,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         if (isSprinting)
         {
             Debug.Log($"Current stamina: {stamina}");
-            stamina -= Time.deltaTime * 5f; // Decrease stamina while sprinting
+            stamina -= Time.deltaTime * 10f; // Decrease stamina while sprinting
             SetStamina(stamina);
             if (stamina <= 0)
             {
