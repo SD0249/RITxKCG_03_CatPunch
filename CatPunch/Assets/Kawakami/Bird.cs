@@ -7,12 +7,23 @@ public class Bird : MonoBehaviour, IDespawnNotifier
 
     [SerializeField]
     private float moveSpeed = 3.0f; // 移動速度
+    [SerializeField]
+   　private float fadeDuration = 1.5f;// フェードアウトの時間
+    [SerializeField]
+    private float DeleateTime = 3.0f;// 薄くなるまでの時間
+
+
+
+    float fadeTimer = 0f;
+
+
 
     private Transform TargetCookie;        // ターゲットの座標
     private Vector3 Startpos;              // 初期位置
     private Cookie TargetCookieComponent;  // ターゲットのCookieスクリプト参照
     private Rigidbody BirdRb;// Rigidbodyコンポーネントの参照
     private Renderer BirdRenderer; // 鳥のレンダラー参照
+
 
     private enum BirdState
     {
@@ -29,6 +40,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         BirdRenderer=GetComponent<Renderer>();
         BirdRb = GetComponent<Rigidbody>();
         Startpos = transform.position;
+        HitPunch();
         // ステージマネージャーからターゲットとなるクッキーを取得
         //Obtain the target cookie from the stage manager.
         TargetCookieComponent = StageManager.Instance.GetRandomCookie();
@@ -121,7 +133,10 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     void HitPunch()
     {
         // クッキー戻す
-        TargetCookieComponent.Cancel();
+        if (TargetCookieComponent != null)
+        {
+            TargetCookieComponent.Cancel();
+        }
         currentState = BirdState.Dead;
         BirdRb.isKinematic = false;
         StartCoroutine(DespawnRoutine());
@@ -129,25 +144,27 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     }
     IEnumerator DespawnRoutine()
     {
-
-        // 1. 3秒間、点滅を繰り返します
+        // 1. 3秒間、点滅を繰り返す
         // Loop for 3 seconds
         float timer = 0;
-        while (timer < 3.0f)
+        while (timer < DeleateTime)
         {
-            // 見た目のスイッチを反転させます
-            // Toggle the renderer visibility
-            BirdRenderer.enabled = !BirdRenderer.enabled;
-
-            // 0.1秒だけ待機
-            // Wait for 0.1 seconds
             yield return new WaitForSeconds(0.1f);
-
-            timer += 0.1f;
-           
+          timer += 0.1f;
         }
-        BirdRenderer.enabled = true;
 
+          BirdRenderer.enabled = true;
+       
+        // 元の色情報の保存
+        Color c = BirdRenderer.material.color;
+        //ゆっくり透明になっていく
+        while (fadeTimer < fadeDuration)
+        {
+            fadeTimer += Time.deltaTime;
+            float alpha = Mathf.Lerp(1.0f, 0.0f, fadeTimer / fadeDuration);
+            BirdRenderer.material.color = new Color(c.r, c.g, c.b, alpha);
+            yield return null;
+        }
 
 
         OnDespawn?.Invoke();
