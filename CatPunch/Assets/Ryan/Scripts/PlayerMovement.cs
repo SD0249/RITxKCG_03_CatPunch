@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Switch;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 up;
     private float attackRange = 1f;
     private bool isSprinting = false;
+    private bool isMoving = false;
     private bool tired = false;
 
     //movement
@@ -27,23 +29,28 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float stamina = 100f;
     [SerializeField] private Slider slider;
-
-    //to visualize attack animation before animations are implemented
-    [SerializeField] private GameObject paw;
+    [SerializeField] private Animator catAnimation;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked; // locks and hides cursor
         Cursor.visible = false;
+        catAnimation.SetBool("IsIdle", true);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        isMoving = true;
+        if (context.canceled)
+        {
+            isMoving = false;
+        }
         //Debug.Log($"Move Input: {moveInput}");
         //Debug.Log("Received input");
     }
+
 
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -63,14 +70,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
+        float originalHeadHeight = head.transform.localPosition.y;
         if (context.performed && characterController.isGrounded)
         {
-            head.transform.localPosition = new Vector3(head.transform.localPosition.x, 0.5f, head.transform.localPosition.z);
+            
+            head.transform.localPosition = new Vector3(head.transform.localPosition.x, originalHeadHeight/0.5f, head.transform.localPosition.z);
             speed = 2.5f; // Reduce speed when crouching
         }
         else if (context.canceled)
         {
-            head.transform.localPosition = new Vector3(head.transform.localPosition.x, 1f, head.transform.localPosition.z);
+            head.transform.localPosition = new Vector3(head.transform.localPosition.x, originalHeadHeight/2, head.transform.localPosition.z);
             speed = 5f; // Reset speed when standing up
         }
     }
@@ -79,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
+            catAnimation.SetTrigger("Punch");
             Debug.Log("Attack called!");
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
             foreach (Collider enemy in hitEnemies)
@@ -86,8 +96,6 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log($"Hit {enemy.name}");
                 // Implement damage logic here
             }
-
-            StartCoroutine(PawAttack());
         }
     }
 
@@ -125,21 +133,6 @@ public class PlayerMovement : MonoBehaviour
         tired = false;
     }
 
-    private IEnumerator PawAttack()
-    {
-        forward = fpCam.transform.forward;
-        right = fpCam.transform.right;
-        up = fpCam.transform.up;
-
-        forward.Normalize();
-        right.Normalize();
-        up.Normalize();
-
-        paw.transform.localPosition += Vector3.forward * attackRange; // move forward
-        yield return new WaitForSeconds(0.2f); // wait
-        paw.transform.localPosition = new Vector3(0.48f, 0.28f, 0.71f); // reset
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -151,14 +144,16 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
         up.Normalize();
 
-        speed = 10f; // Increase speed when sprinting
         if (isSprinting)
         {
+            catAnimation.SetBool("IsSprinting", true);
+            speed = 10f;
             Debug.Log($"Current stamina: {stamina}");
             stamina -= Time.deltaTime * 10f; // Decrease stamina while sprinting
             SetStamina(stamina);
             if (stamina <= 0)
             {
+                catAnimation.SetBool("IsSprinting", false);
                 tired = true;
                 isSprinting = false;
                 stamina = 0;
@@ -172,7 +167,22 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, fpCam.transform.rotation, 0.1f * Time.deltaTime);
         transform.rotation = fpCam.transform.rotation;
+
+        //if (isMoving)
+        //{
+        //    catAnimation.SetBool("IsWalking", true);
+        //}
+        //else if (!isMoving)
+        //{
+        //    catAnimation.SetBool("IsIdle", true);
+        //}
+        //else if (isSprinting)
+        //{
+        //    catAnimation.SetBool("IsSprinting", true);
+        //}
+        
+        
+        
     }
 }
