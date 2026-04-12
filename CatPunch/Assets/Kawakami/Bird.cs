@@ -110,6 +110,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         {
             // クッキーの取得
             //Acquisition of cookies
+            StageManager.Instance.BirdStole();
             TargetCookieComponent.Confirm();
             OnDespawn?.Invoke();
             Destroy(gameObject);
