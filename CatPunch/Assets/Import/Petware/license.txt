@@ -1,0 +1,11 @@
+Model Information:
+* title:	Petware
+* source:	https://sketchfab.com/3d-models/petware-8e8a112b2fc04516a8524086c24ecc46
+* author:	24light (https://sketchfab.com/24light)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Petware" (https://sketchfab.com/3d-models/petware-8e8a112b2fc04516a8524086c24ecc46) by 24light (https://sketchfab.com/24light) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

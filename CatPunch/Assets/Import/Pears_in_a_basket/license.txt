@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pears in a basket
+* source:	https://sketchfab.com/3d-models/pears-in-a-basket-df99c4f106bd4176ad467848994b7b8c
+* author:	Lassi Kaukonen (https://sketchfab.com/thesidekick)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pears in a basket" (https://sketchfab.com/3d-models/pears-in-a-basket-df99c4f106bd4176ad467848994b7b8c) by Lassi Kaukonen (https://sketchfab.com/thesidekick) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

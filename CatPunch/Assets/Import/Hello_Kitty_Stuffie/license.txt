@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Kitty Stuffie
+* source:	https://sketchfab.com/3d-models/hello-kitty-stuffie-ff7d426729174758a59add57eeb7f6a3
+* author:	cheyenne_art_and_more (https://sketchfab.com/cheyenne_art_and_more)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Kitty Stuffie" (https://sketchfab.com/3d-models/hello-kitty-stuffie-ff7d426729174758a59add57eeb7f6a3) by cheyenne_art_and_more (https://sketchfab.com/cheyenne_art_and_more) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

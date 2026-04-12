@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pet Water Bowl
+* source:	https://sketchfab.com/3d-models/pet-water-bowl-0e7aa96706064f449063319856d151e1
+* author:	heathermichno (https://sketchfab.com/heathermichno)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pet Water Bowl" (https://sketchfab.com/3d-models/pet-water-bowl-0e7aa96706064f449063319856d151e1) by heathermichno (https://sketchfab.com/heathermichno) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
