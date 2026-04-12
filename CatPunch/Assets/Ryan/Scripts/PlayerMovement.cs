@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,15 +14,19 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 right;
     private Vector3 up;
     private float attackRange = 1f;
+    private bool isSprinting = false;
+    private bool tired = false;
 
     //movement
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpHeight = 2f;
+    [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float gravity = -9.8f;
     [SerializeField] private GameObject fpCam;
     [SerializeField] private GameObject head;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private Transform attackPoint;
+    [SerializeField] private float stamina = 100f;
+    [SerializeField] private Slider slider;
 
     //to visualize attack animation before animations are implemented
     [SerializeField] private GameObject paw;
@@ -86,6 +91,41 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if (context.performed && !tired)
+        {
+            Debug.Log("Sprinting!");
+            isSprinting = true;
+        }
+        else if (context.canceled)
+        {
+            Debug.Log("Stopped sprinting!");
+            isSprinting = false;
+            speed = 5f;
+            // Optionally, you can implement stamina regeneration here
+            StartCoroutine(RegenerateStamina());
+        }
+    }
+
+    public void SetStamina(float staminaValue)
+    {
+        slider.value = staminaValue; // Update the slider UI
+    }
+
+    private IEnumerator RegenerateStamina()
+    {
+        while (stamina < 100f)
+        {
+            stamina += Time.deltaTime * 20f; // Regenerate stamina over time
+            SetStamina(stamina); // Update the slider UI
+            yield return null;
+        }
+        stamina = 100f;
+        SetStamina(stamina); // Ensure slider is full
+        tired = false;
+    }
+
     private IEnumerator PawAttack()
     {
         forward = fpCam.transform.forward;
@@ -96,8 +136,8 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
         up.Normalize();
 
-        paw.transform.localPosition += (forward * attackRange) + (right * attackRange); // move forward
-        yield return new WaitForSeconds(0.2f);                   // wait
+        paw.transform.localPosition += Vector3.forward * attackRange; // move forward
+        yield return new WaitForSeconds(0.2f); // wait
         paw.transform.localPosition = new Vector3(0.48f, 0.28f, 0.71f); // reset
     }
 
@@ -111,6 +151,22 @@ public class PlayerMovement : MonoBehaviour
         forward.Normalize();
         right.Normalize();
         up.Normalize();
+
+        speed = 10f; // Increase speed when sprinting
+        if (isSprinting)
+        {
+            Debug.Log($"Current stamina: {stamina}");
+            stamina -= Time.deltaTime * 5f; // Decrease stamina while sprinting
+            SetStamina(stamina);
+            if (stamina <= 0)
+            {
+                tired = true;
+                isSprinting = false;
+                stamina = 0;
+                speed = 5f;
+                StartCoroutine(RegenerateStamina());
+            }
+        }
 
         Vector3 move = (forward * moveInput.y) + (right * moveInput.x);
         characterController.Move(move * speed * Time.deltaTime);
