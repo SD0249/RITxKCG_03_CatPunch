@@ -1,8 +1,8 @@
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Stage‚ğŠÇ—‚·‚éƒNƒ‰ƒX
@@ -70,5 +70,35 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    
+    public Cookie GetNearestCookie(Vector3 pos)
+    {
+        if(cookies.Count <= 0)
+        {
+            return null;
+        }
+
+        Cookie nearest = null;
+
+        float minDistance = float.MaxValue;
+
+        for (int i = 0; i < cookies.Count; i++)
+        {
+            float distance = (cookies[i].transform.position - pos).sqrMagnitude;
+
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                nearest = cookies[i];
+            }
+        }
+
+        return nearest;
+    }
+
+    public Cookie GetRandomCookie()
+    {
+        int rand = Random.Range(0, cookies.Count);
+
+        return cookies[rand];
+    }
 }
