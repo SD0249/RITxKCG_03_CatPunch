@@ -33,6 +33,22 @@ public class StageManager : MonoBehaviour
     [Tooltip("クッキーのリスト CookiesList")]
     private List<Cookie> cookies;
 
+    /// <summary>
+    /// 鳥がクッキーを盗んだ数
+    /// </summary>
+    private int birdStoleNum;
+
+    /// <summary>
+    /// 鳥が盗んだクッキーを加算(Add BirdStoleNum)
+    /// </summary>
+    public void BirdStole() => birdStoleNum++;
+
+    /// <summary>
+    /// 鳥が盗んだクッキーの数を取得
+    /// </summary>
+    /// <returns>クッキーの数</returns>
+    public int GetBirdStoleNum() => birdStoleNum;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +56,8 @@ public class StageManager : MonoBehaviour
         Timer = new LimitTimer(timeLimit);
         Timer.OnFinished += OnTimeLimitReached;
         Timer.Start();
+
+        birdStoleNum = 0;
     }
 
     // Update is called once per frame
