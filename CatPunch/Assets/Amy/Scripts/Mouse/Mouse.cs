@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Threading.Tasks;
+using System.Timers;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Mouse : MonoBehaviour, IDespawnNotifier
 {
@@ -10,8 +10,9 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     public float maxSpeed;
     public float rotationSpeed = 5.0f;
     public Animator mouseAnimator;
-    public GameObject currentTarget;                 // This will be the transform of the closest cookie object to the mouse. Continuously pursues until it reaches it
-    public int CookieCount;                                          
+    public Cookie currentTarget;                 // This will be the transform of the closest cookie object to the mouse. Continuously pursues until it reaches it
+    public int desiredAmount;                    // How much cookie the mouse tries to get
+    private int reservedAmount;                  // How much cookie that it actually gets
 
     public Vector3 startingPos;                     // After obtaining the cookie, they will return to this location.
     public MouseState currentState;
@@ -20,6 +21,8 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     public float jumpThreshold = 1.0f;  // This is the distance to trigger jump
     public float jumpNudge = 0.3f;
     private bool isJumping = false;
+
+    public Renderer[] mouseRenderer;
 
     public enum MouseState
     {
@@ -45,7 +48,7 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
         currentState = MouseState.Idle;
         startingPos = gameObject.transform.position;    // This will only work when despawning is just disabling the mouse
         if(MouseManager.Instance != null)
-        MouseManager.Instance.RegisterMouse(this); 
+        MouseManager.Instance.RegisterMouse(this);
     }
 
     void OnDisable()
@@ -62,18 +65,27 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
                 // Play Idle animation
                 mouseAnimator.SetFloat("Speed", 0f);
 
-                // Change State
-                if (currentTarget == null)
+                // For actual in game
+                // Find nearest cookie (plate)
+                Cookie cookie = StageManager.Instance.GetNearestCookie(gameObject.transform.position);
+                if (cookie != null)
                 {
-                    currentTarget = MouseManager.Instance.GetRandomTestSceneCookie();
+                    // Try to reserve the desired amount of cookie
+                    for(int i = 0; i < desiredAmount; i++)
+                    {
+                        if (cookie.TryReserve())
+                            reservedAmount++;
+                        else
+                            break;
+                    }
 
-                    // For actual in game
-                    // currentTarget = StageManager.Instance.GetNearestCookie(gameObject.transform.position).gameObject;
-                    currentState = MouseState.Seek;
-                }
-                else
-                {
-                    currentState = MouseState.Seek;
+                    // If there are cookie available
+                    if(reservedAmount > 0)
+                    {
+                        currentTarget = cookie;
+                        currentState = MouseState.Seek;
+                    }
+                    // else, no cookies are available - Stay Idle and Try next Frame
                 }
                 break;
 
@@ -86,14 +98,13 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
                 // Mouse moves towards the cookie every frame
                 MoveTowards(currentTarget.transform.position);
 
-                // Reaching cookie reaction is handled by IsTrigger
-                // This is just here for fall back, just in case!
+               
+                // If mouse reaches the cookie
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) < 0.3f)
                 {
                     Debug.Log("Reached Cookie");
                     mouseAnimator.SetFloat("Speed", 0f);
-                    currentTarget = null;        // Clear target
-                    currentTarget.SetActive(false);
+
                     currentState = MouseState.Return;
                 }
                 break;
@@ -110,6 +121,16 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
                 // Check whether mouse returned (A little room of threshold - 0.3f can change if this feels not too close
                 if (Vector3.Distance(transform.position, startingPos) < 0.3f)
                 {
+                    // Confirm Cookie
+                    for (int i = 0; i < reservedAmount; i++)
+                    {
+                        Debug.Log("Got " + reservedAmount + "cookies");
+                        currentTarget.Confirm();
+                    }
+
+                    currentTarget = null;
+                    reservedAmount = 0;
+
                     mouseAnimator.SetFloat("Speed", 0f);    // Should start playing idle
                     DespawnMouse();
                 }
@@ -134,19 +155,20 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
         transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
     }
 
+    // NOT NEEDED - unless the precision is bad
     private void OnTriggerEnter(Collider other)
     {
-        // Detect cookie
-        if (other.CompareTag("Cookie"))
-        {
-            Debug.Log("Reached Cookie");
+        //Detect cookie
+        //if (other.CompareTag("Cookie"))
+        //{
+        //    Debug.Log("Reached Cookie");
 
-            GameObject cookie = currentTarget.gameObject;
-            mouseAnimator.SetFloat("Speed", 0f);
-            currentTarget = null;        // Clear target
-            cookie.SetActive(false);
-            currentState = MouseState.Return;
-        }
+        //    GameObject cookie = currentTarget.gameObject;
+        //    mouseAnimator.SetFloat("Speed", 0f);
+        //    currentTarget = null;        // Clear target
+        //    cookie.SetActive(false);
+        //    currentState = MouseState.Return;
+        //}
 
         // Need to be implemented
         // Detect other mice for jump & Trigger jump
@@ -179,7 +201,36 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
             }
         }
     }
+    private IEnumerator FadeOutMultiple(float fadeDuration)
+    {
+        float elapsed = 0f;
 
+        // Store original colors
+        Color[] originalColors = new Color[mouseRenderer.Length];
+        for (int i = 0; i < mouseRenderer.Length; i++)
+            originalColors[i] = mouseRenderer[i].material.color;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+
+            for (int i = 0; i < mouseRenderer.Length; i++)
+            {
+                Color c = originalColors[i];
+                mouseRenderer[i].material.color = new Color(c.r, c.g, c.b, alpha);
+            }
+
+            yield return null;
+        }
+
+        // Ensure fully transparent
+        for (int i = 0; i < mouseRenderer.Length; i++)
+        {
+            Color c = originalColors[i];
+            mouseRenderer[i].material.color = new Color(c.r, c.g, c.b, 0f);
+        }
+    }
     private IEnumerator ResetJump(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -190,8 +241,42 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     private async void DespawnMouse()
     {
         MouseManager.Instance.UnregisterMouse(this);
+
+        // Start fade - Unfortunately doesn't work becasue Mouse is opaque
+        StartCoroutine(FadeOutMultiple(1.5f));
+
         await Task.Delay(3000); // 3000 ms = 3 seconds
         OnDespawn?.Invoke();
+        gameObject.SetActive(false);
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            // Direction away from player
+            Vector3 knockbackDir = (transform.position - collision.transform.position.normalized);
+
+            // Allow smooth knockback
+            StartCoroutine(KnockbackRoutine(knockbackDir, 3f, 0.2f));
+
+            DespawnMouse();
+        }
+    }
+
+    private IEnumerator KnockbackRoutine(Vector3 direction, float distance, float duration)
+    {
+        float elapsed = 0f;
+        Vector3 start = transform.position;
+        Vector3 end = start + direction * distance;
+
+        while(elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(start, end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+    }
 }
