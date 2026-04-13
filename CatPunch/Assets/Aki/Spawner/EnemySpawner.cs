@@ -111,7 +111,16 @@ public class EnemySpawner : MonoBehaviour
                 .GetRandomSpawnPoint(runtime.Data.Type == SpawnerType.BIRD);
 
             // デスポーン通知インターフェースの取得
-            var notifier = obj.GetComponent<IDespawnNotifier>();
+            IDespawnNotifier notifier;
+
+            if(runtime.Data.Type == SpawnerType.RAT)
+            {
+                notifier = obj.GetComponentInChildren<IDespawnNotifier>();
+            }
+            else
+            {
+                notifier = obj.GetComponent<IDespawnNotifier>();
+            }
 
             // デスポーン通知インターフェースがあれば、スポーン数の管理とプールへの返却を登録
             if (notifier != null)
@@ -121,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
                     // アクティブ数を減らす
                     runtime.ActiveCount--;
 
-                    enemyPool.Return(runtime.Data.Prefab, obj);
+                    enemyPool.Return(prefab, obj);
 
                     notifier.OnDespawn -= OnDespawnHndler;
                 }
@@ -129,9 +138,13 @@ public class EnemySpawner : MonoBehaviour
 
                 notifier.OnDespawn += OnDespawnHndler;
             }
+            else
+            {
+                Debug.Log("NotHaveNotifier");
+            }
 
-            // アクティブ数を増やす
-            runtime.ActiveCount++;
+                // アクティブ数を増やす
+                runtime.ActiveCount++;
         }
     }
 

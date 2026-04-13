@@ -22,8 +22,6 @@ public class EnemyPool
         }
         else
         {
-            Debug.Log("Pool is empty for prefab: " + prefab.name + ", instantiating new object.");
-
             return GameObject.Instantiate(prefab);
         }
     }
