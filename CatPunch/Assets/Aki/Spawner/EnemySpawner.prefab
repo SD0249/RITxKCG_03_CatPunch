@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2293248987164749275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4759109641392218779}
+  - component: {fileID: 218731027499411322}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4759109641392218779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293248987164749275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218731027499411322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293248987164749275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9d0b7ff53392c48af8db10cfc356b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  spawnDataList:
+  - Prefab: {fileID: 6171098161054542745, guid: 1789db187dafa5944bcdd0fcedb9d80a, type: 3}
+    RatPrefabs: []
+    MaxSpawnCount: 8
+    Type: 1
+  - Prefab: {fileID: 0}
+    RatPrefabs:
+    - Prefab: {fileID: 3747396784256906051, guid: 9f16d105727d917479074849ae0aa993, type: 3}
+      Probability: 50
+    - Prefab: {fileID: 3483142229661094569, guid: e181a7d1c8421344d9d9a646189b3ab7, type: 3}
+      Probability: 30
+    - Prefab: {fileID: 8078421962781626311, guid: 96400d051ccd70343b925fba67da546c, type: 3}
+      Probability: 20
+    MaxSpawnCount: 25
+    Type: 0
+  spawnAreaX: 10
+  spawnAreaZ: 10
