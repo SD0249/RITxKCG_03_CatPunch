@@ -23,6 +23,11 @@ public class StageManager : MonoBehaviour
 
         // クッキーのリストを初期化
         cookies = new List<Cookie>();
+
+        // timer
+        Timer = new LimitTimer(timeLimit);
+        Timer.OnFinished += OnTimeLimitReached;
+        Timer.Start();
     }
 
     [SerializeField]
@@ -52,11 +57,6 @@ public class StageManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // timer
-        Timer = new LimitTimer(timeLimit);
-        Timer.OnFinished += OnTimeLimitReached;
-        Timer.Start();
-
         birdStoleNum = 0;
     }
 
