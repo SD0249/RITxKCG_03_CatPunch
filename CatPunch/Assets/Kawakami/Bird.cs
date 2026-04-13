@@ -134,7 +134,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
             StageManager.Instance.BirdStole();
             TargetCookieComponent.Confirm();
             OnDespawn?.Invoke();
-            this.gameObject.SetActive(false);
+     
         }
     }
 
@@ -180,7 +180,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
 
 
         OnDespawn?.Invoke();
-        this.gameObject.SetActive(false);
+        
 
     }
 }
