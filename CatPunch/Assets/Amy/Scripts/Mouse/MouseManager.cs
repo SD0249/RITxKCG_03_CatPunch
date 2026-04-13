@@ -10,7 +10,7 @@ public class MouseManager : MonoBehaviour
     public List<Mouse> allMice = new List<Mouse>();
 
     // Not needed at actual scene
-    public GameObject[] testSceneCookie;
+    // public GameObject[] testSceneCookie;
 
     private void Awake()
     {
@@ -35,9 +35,9 @@ public class MouseManager : MonoBehaviour
     }
 
     // Test method
-    public GameObject GetRandomTestSceneCookie()
-    {
-        int randomindex = Random.Range(0, 4);
-        return testSceneCookie[randomindex];
-    }
+    //public GameObject GetRandomTestSceneCookie()
+    //{
+    //    int randomindex = Random.Range(0, 4);
+    //    return testSceneCookie[randomindex];
+    //}
 }
