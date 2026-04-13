@@ -12,12 +12,6 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     [SerializeField]
     private float DeleateTime = 3.0f;// 薄くなるまでの時間
 
-
-
-    float fadeTimer = 0f;
-
-
-
     private Transform TargetCookie;        // ターゲットの座標
     private Vector3 Startpos;              // 初期位置
     private Cookie TargetCookieComponent;  // ターゲットのCookieスクリプト参照
@@ -35,18 +29,33 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     }
     private BirdState currentState = BirdState.Approaching;
 
-    void Start()
+    void Awake()
     {
-        BirdRenderer=GetComponent<Renderer>();
         BirdRb = GetComponent<Rigidbody>();
+        BirdRenderer = GetComponent<Renderer>();
+    }
+    private void OnEnable()
+    {
         Startpos = transform.position;
-        HitPunch();
-        // ステージマネージャーからターゲットとなるクッキーを取得
-        //Obtain the target cookie from the stage manager.
         TargetCookieComponent = StageManager.Instance.GetRandomCookie();
         TargetCookie = TargetCookieComponent.transform;
-    }
 
+        if (BirdRb != null)
+        {
+            BirdRb.isKinematic = true; // 鳥のRigidbodyをキネマティックに設定
+            BirdRb.linearVelocity = Vector3.zero; // 速度をリセット
+            BirdRb.angularVelocity = Vector3.zero;
+        }
+        // 2. 見た目をはっきりさせる（透明や非表示から戻します）
+        if (BirdRenderer != null)
+        {
+            // 色と透明度を元通り（不透明）にいたします
+            BirdRenderer.enabled = true;
+            Color c = BirdRenderer.material.color;
+            BirdRenderer.material.color = new Color(c.r, c.g, c.b, 1.0f);
+        }
+        currentState = BirdState.Approaching;
+    }
     void Update()
     {
         if (TargetCookie == null) return;
@@ -125,7 +134,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
             StageManager.Instance.BirdStole();
             TargetCookieComponent.Confirm();
             OnDespawn?.Invoke();
-            Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -149,6 +158,8 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         float timer = 0;
         while (timer < DeleateTime)
         {
+            //消滅するまでに点滅させると思って間違えて書いてました点滅させても
+           // BirdRenderer.enabled = !BirdRenderer.enabled;
             yield return new WaitForSeconds(0.1f);
           timer += 0.1f;
         }
@@ -158,6 +169,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         // 元の色情報の保存
         Color c = BirdRenderer.material.color;
         //ゆっくり透明になっていく
+        float fadeTimer = 0f;
         while (fadeTimer < fadeDuration)
         {
             fadeTimer += Time.deltaTime;
@@ -168,6 +180,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
 
 
         OnDespawn?.Invoke();
-            Destroy(gameObject);
+        this.gameObject.SetActive(false);
+
     }
 }
