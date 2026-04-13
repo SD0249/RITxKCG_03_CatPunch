@@ -78,12 +78,12 @@ public class StageManager : MonoBehaviour
 
     private void GameClear()
     {
-
+        SceneManager.LoadScene("GameClear");
     }
 
     private void GameOver()
     {
-
+        SceneManager.LoadScene("GameOver");
     }
 
     /// <summary>
