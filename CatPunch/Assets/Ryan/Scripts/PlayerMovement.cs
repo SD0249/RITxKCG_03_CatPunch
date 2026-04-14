@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float stamina = 100f;
     [SerializeField] private Slider slider;
     [SerializeField] private Animator catAnimation;
+    [SerializeField] private GameObject cat;
 
     void Start()
     {
@@ -143,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         //checking if sprinting and updating speed and stamina accordingly
         if (isSprinting)
         {
-            speed = speed * 2; //doubling base speed
+            speed = 10f; //doubling base speed
             stamina -= Time.deltaTime * 10f; // Decrease stamina while sprinting
             SetStamina(stamina);
             //when running out of energy
@@ -165,5 +166,7 @@ public class PlayerMovement : MonoBehaviour
 
         //making cat always face camera
         transform.rotation = fpCam.transform.rotation;        
+        //transform.rotation = Quaternion.Slerp(transform.rotation, fpCam.transform.rotation, Time.deltaTime);        
+        //cat.transform.rotation = Quaternion.Slerp(transform.rotation, fpCam.transform.rotation, Time.deltaTime);        
     }
 }
