@@ -61,3 +61,4 @@ MonoBehaviour:
     Type: 0
   spawnAreaX: 10
   spawnAreaZ: 10
+  birdSpawnHeight: 2.5

@@ -9,17 +9,19 @@ public class SpawnPointProvider
 
     private float spawnHalfZ;
 
-    private float birdSpawnHeight = 5f;
+    private float birdSpawnHeight;
 
     /// <summary>
     /// コンストラクタ
     /// </summary>
     /// <param name="spawnAreaX">生成位置X</param>
     /// <param name="spawnAreaZ">生成位置Z</param>
-    public SpawnPointProvider(float spawnAreaX, float spawnAreaZ)
+    /// <param name="birdHeight">鳥の生成高さ</param>
+    public SpawnPointProvider(float spawnAreaX, float spawnAreaZ,float birdHeight)
     {
         spawnHalfX = spawnAreaX * 0.5f;
         spawnHalfZ = spawnAreaZ * 0.5f;
+        birdSpawnHeight = birdHeight; 
     }
 
     /// <summary>

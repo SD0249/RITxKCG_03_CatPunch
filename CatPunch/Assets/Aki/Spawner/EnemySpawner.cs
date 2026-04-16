@@ -13,6 +13,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float spawnAreaZ;
 
+    [SerializeField]
+    private float birdSpawnHeight;
+
     private SpawnPointProvider spawnPointProvider;
 
     private EnemyPool enemyPool;
@@ -26,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
         enemyPool = new();
 
-        spawnPointProvider = new SpawnPointProvider(spawnAreaX, spawnAreaZ);
+        spawnPointProvider = new SpawnPointProvider(spawnAreaX, spawnAreaZ,birdSpawnHeight);
 
         foreach (var data in spawnDataList)
         {
