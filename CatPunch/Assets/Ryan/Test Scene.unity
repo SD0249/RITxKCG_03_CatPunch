@@ -45772,6 +45772,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!95 &1081658638 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2189950397874925739, guid: 89f143daf0fb77a47923ebbce3ee4478, type: 3}
+  m_PrefabInstance: {fileID: 2453337038788293501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1369367144
 Mesh:
   m_ObjectHideFlags: 0
@@ -49852,6 +49857,10 @@ PrefabInstance:
       propertyPath: slider
       value: 
       objectReference: {fileID: 2013802731}
+    - target: {fileID: 5534249610605373256, guid: 89f143daf0fb77a47923ebbce3ee4478, type: 3}
+      propertyPath: catAnimation
+      value: 
+      objectReference: {fileID: 1081658638}
     - target: {fileID: 7924633477232184055, guid: 89f143daf0fb77a47923ebbce3ee4478, type: 3}
       propertyPath: m_Name
       value: Player
