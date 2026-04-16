@@ -305,6 +305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medium Mouse (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3483142229661094569, guid: e181a7d1c8421344d9d9a646189b3ab7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7950903131812980753, guid: e181a7d1c8421344d9d9a646189b3ab7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.64
@@ -361,6 +365,10 @@ PrefabInstance:
     - target: {fileID: 3747396784256906051, guid: 9f16d105727d917479074849ae0aa993, type: 3}
       propertyPath: m_Name
       value: Small Mouse (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747396784256906051, guid: 9f16d105727d917479074849ae0aa993, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3860360652137000940, guid: 9f16d105727d917479074849ae0aa993, type: 3}
       propertyPath: m_LocalPosition.x
@@ -813,6 +821,7 @@ MonoBehaviour:
     Type: 0
   spawnAreaX: 0
   spawnAreaZ: 0
+  birdSpawnHeight: 0
 --- !u!1 &1020710722
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,6 +968,10 @@ PrefabInstance:
       propertyPath: totalCount
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1735090497520356783, guid: f0e98039d5000654491da691fd3097bc, type: 3}
+      propertyPath: cookieModel
+      value: 
+      objectReference: {fileID: 5591493482016376802, guid: f0e98039d5000654491da691fd3097bc, type: 3}
     - target: {fileID: 4181228654563374293, guid: f0e98039d5000654491da691fd3097bc, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.59783
@@ -1014,6 +1027,10 @@ PrefabInstance:
     - target: {fileID: 5591493482016376802, guid: f0e98039d5000654491da691fd3097bc, type: 3}
       propertyPath: m_Name
       value: ' Cookie 1'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591493482016376802, guid: f0e98039d5000654491da691fd3097bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1455,6 +1472,10 @@ PrefabInstance:
     - target: {fileID: 8078421962781626311, guid: 96400d051ccd70343b925fba67da546c, type: 3}
       propertyPath: m_Name
       value: Large Mouse (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8078421962781626311, guid: 96400d051ccd70343b925fba67da546c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2127,6 +2148,10 @@ PrefabInstance:
       propertyPath: totalCount
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1735090497520356783, guid: f0e98039d5000654491da691fd3097bc, type: 3}
+      propertyPath: cookieModel
+      value: 
+      objectReference: {fileID: 5591493482016376802, guid: f0e98039d5000654491da691fd3097bc, type: 3}
     - target: {fileID: 4181228654563374293, guid: f0e98039d5000654491da691fd3097bc, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.59783
@@ -2183,6 +2208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cookie 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5591493482016376802, guid: f0e98039d5000654491da691fd3097bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2199,6 +2228,10 @@ PrefabInstance:
     - target: {fileID: 3747396784256906051, guid: 9f16d105727d917479074849ae0aa993, type: 3}
       propertyPath: m_Name
       value: Small Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747396784256906051, guid: 9f16d105727d917479074849ae0aa993, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3860360652137000940, guid: 9f16d105727d917479074849ae0aa993, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2264,6 +2297,10 @@ PrefabInstance:
     - target: {fileID: 3483142229661094569, guid: e181a7d1c8421344d9d9a646189b3ab7, type: 3}
       propertyPath: m_Name
       value: Medium Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483142229661094569, guid: e181a7d1c8421344d9d9a646189b3ab7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7950903131812980753, guid: e181a7d1c8421344d9d9a646189b3ab7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2365,6 +2402,10 @@ PrefabInstance:
     - target: {fileID: 8078421962781626311, guid: 96400d051ccd70343b925fba67da546c, type: 3}
       propertyPath: m_Name
       value: Large Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 8078421962781626311, guid: 96400d051ccd70343b925fba67da546c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

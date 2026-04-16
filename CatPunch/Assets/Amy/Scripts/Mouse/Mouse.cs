@@ -247,7 +247,7 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
 
         await Task.Delay(3000); // 3000 ms = 3 seconds
         OnDespawn?.Invoke();
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)

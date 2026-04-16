@@ -28,8 +28,8 @@ public class EnemyPool
 
     public void Return(GameObject prefab, GameObject obj)
     {
-        obj.SetActive(false);
-
         pool[prefab].Enqueue(obj);
+
+        obj.SetActive(false);
     }
 }
