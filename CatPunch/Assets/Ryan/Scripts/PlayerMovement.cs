@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked; // locks and hides cursor
         Cursor.visible = false;
-        catAnimation.SetBool("IsIdle", true);
+        catAnimation.SetBool("Idle", true);
     }
 
     //receiving input to move
@@ -85,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed)
         {
             //plays punch animation
+            catAnimation.SetBool("Idle", false);
+            Debug.Log("Idle is set to " + catAnimation.GetBool("Idle"));
             catAnimation.SetTrigger("Punch");
 
             //checks each enemy hit in attack range
@@ -94,6 +96,9 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log($"Hit {enemy.name}");
                 // Implement damage logic here
             }
+
+            catAnimation.SetBool("Idle", true);
+            Debug.Log("Idle is set to " + catAnimation.GetBool("Idle"));
         }
     }
 
