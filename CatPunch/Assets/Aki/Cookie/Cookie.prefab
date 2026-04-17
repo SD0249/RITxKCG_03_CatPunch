@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4181228654563374293
 Transform:
   m_ObjectHideFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cookie
   totalCount: 15
-  cookieModel: {fileID: 0}
+  cookieModel: {fileID: 4213511542111296625}
 --- !u!1001 &911051738446332670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,6 +148,11 @@ PrefabInstance:
 --- !u!4 &1341060529075038310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2177723277991488152, guid: 3badefe37ecd7514c962e472253eb4db, type: 3}
+  m_PrefabInstance: {fileID: 911051738446332670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4213511542111296625 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3953547867931926159, guid: 3badefe37ecd7514c962e472253eb4db, type: 3}
   m_PrefabInstance: {fileID: 911051738446332670}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8608402047131310303
