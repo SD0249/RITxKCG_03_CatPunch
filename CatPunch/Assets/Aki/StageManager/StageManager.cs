@@ -54,10 +54,14 @@ public class StageManager : MonoBehaviour
     /// <returns>クッキーの数</returns>
     public int GetBirdStoleNum() => birdStoleNum;
 
+    public SoundManager soundManager {  get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         birdStoleNum = 0;
+
+        soundManager = GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
