@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7646998570480018998}
   - component: {fileID: 4675239344617985349}
   - component: {fileID: 4696891533375106035}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bird
   moveSpeed: 3
+  fadeDuration: 1.5
+  DeleateTime: 3
 --- !u!54 &4696891533375106035
 Rigidbody:
   m_ObjectHideFlags: 0

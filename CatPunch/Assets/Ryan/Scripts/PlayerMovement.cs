@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 forward;
     private Vector3 right;
     private Vector3 up;
-    private float attackRange = 100f;
+    private float attackRange = 10f;
     private bool isSprinting = false;
     private bool tired = false;
 
@@ -94,7 +94,15 @@ public class PlayerMovement : MonoBehaviour
             foreach (Collider enemy in hitEnemies)
             {
                 Debug.Log($"Hit {enemy.name}");
-                // Implement damage logic here
+                
+                if(enemy.gameObject.TryGetComponent<Mouse>(out Mouse mouse))
+                {
+                    mouse.OnHit(this.gameObject.transform.position);
+                }
+                else if(enemy.gameObject.TryGetComponent<Bird>(out Bird bird))
+                {
+                    bird.HitPunch();
+                }
             }
 
             catAnimation.SetBool("Idle", true);

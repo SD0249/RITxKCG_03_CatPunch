@@ -65,6 +65,8 @@ public class Cookie : MonoBehaviour
         }
 
         StageManager.Instance.StolenCookie();
+
+        Debug.Log("Available Cookie: " + AvailableCount);
     }
 
     public void Cancel()

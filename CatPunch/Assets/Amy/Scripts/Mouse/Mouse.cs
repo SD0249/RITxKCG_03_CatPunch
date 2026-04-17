@@ -243,13 +243,14 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
         MouseManager.Instance.UnregisterMouse(this);
 
         // Start fade - Unfortunately doesn't work becasue Mouse is opaque
-        StartCoroutine(FadeOutMultiple(1.5f));
+        // StartCoroutine(FadeOutMultiple(1.5f));
 
         await Task.Delay(3000); // 3000 ms = 3 seconds
         OnDespawn?.Invoke();
         // gameObject.SetActive(false);
     }
 
+    // Does not work because of how player triggers hit
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player"))
@@ -266,6 +267,18 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
         }
     }
 
+    // Called in player's punch(attack) method
+    public void OnHit(Vector3 playerPos)
+    {
+        Debug.Log("Mouse hit!");
+
+        // Direction away from player
+        Vector3 knockbackDir = (transform.position - playerPos);
+
+        // Allow smooth knockback
+        StartCoroutine(KnockbackRoutine(knockbackDir, 3f, 0.2f));
+    }
+
     private IEnumerator KnockbackRoutine(Vector3 direction, float distance, float duration)
     {
         float elapsed = 0f;
@@ -280,5 +293,7 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
         }
 
         transform.position = end;
+
+        DespawnMouse();
     }
 }

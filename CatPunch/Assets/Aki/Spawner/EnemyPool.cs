@@ -30,6 +30,7 @@ public class EnemyPool
     {
         pool[prefab].Enqueue(obj);
 
+        if(obj != null)
         obj.SetActive(false);
     }
 }

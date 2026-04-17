@@ -43,8 +43,10 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         if (BirdRb != null)
         {
             BirdRb.isKinematic = true; // 鳥のRigidbodyをキネマティックに設定
-            BirdRb.linearVelocity = Vector3.zero; // 速度をリセット
-            BirdRb.angularVelocity = Vector3.zero;
+
+            // Got warning - Kinematic body's linear or angular velocity shouldn't be manually set
+            // BirdRb.linearVelocity = Vector3.zero; // 速度をリセット
+            // BirdRb.angularVelocity = Vector3.zero;
         }
         // 2. 見た目をはっきりさせる（透明や非表示から戻します）
         if (BirdRenderer != null)
@@ -139,8 +141,10 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     }
 
     // プレイヤーに攻撃された際の処理
-    void HitPunch()
+    public void HitPunch()
     {
+        Debug.Log("Bird Hit!");
+
         // クッキー戻す
         if (TargetCookieComponent != null)
         {
