@@ -28,7 +28,7 @@ public class Cookie : MonoBehaviour
 
         reservedCount = 0;
 
-        // StageManagerに自身を登録
+        // StageManagerに自身を登?
         StageManager.Instance.AddCookie(this);
 
         IsEmpty = false;
@@ -56,7 +56,7 @@ public class Cookie : MonoBehaviour
 
         reservedCount--;
 
-        // クッキーが全て盗まれれば空状態に
+        // クッキ?が全て盗まれれば空状態に
         if(StolenCount >= totalCount)
         {
             IsEmpty = true;
