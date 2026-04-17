@@ -254,6 +254,8 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Hit by player!");
+
             // Direction away from player
             Vector3 knockbackDir = (transform.position - collision.transform.position.normalized);
 

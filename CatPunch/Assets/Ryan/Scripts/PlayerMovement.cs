@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 forward;
     private Vector3 right;
     private Vector3 up;
-    private float attackRange = 1f;
+    private float attackRange = 100f;
     private bool isSprinting = false;
     private bool tired = false;
 
