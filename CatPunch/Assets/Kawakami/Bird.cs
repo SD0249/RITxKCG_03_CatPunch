@@ -32,10 +32,12 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     void Awake()
     {
         BirdRb = GetComponent<Rigidbody>();
-        BirdRenderer = GetComponent<Renderer>();
+        BirdRenderer = GetComponent<MeshRenderer>();
     }
     private void OnEnable()
     {
+        Debug.Log("Bird Enabled!");
+
         Startpos = transform.position;
         TargetCookieComponent = StageManager.Instance.GetRandomCookie();
         TargetCookie = TargetCookieComponent.transform;
@@ -57,6 +59,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
             BirdRenderer.material.color = new Color(c.r, c.g, c.b, 1.0f);
         }
         currentState = BirdState.Approaching;
+        Debug.Log("Bird state: Approaching");
     }
     void Update()
     {

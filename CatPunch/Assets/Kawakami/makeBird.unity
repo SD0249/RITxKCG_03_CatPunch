@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   spawnDataList:
-  - Prefab: {fileID: 6171098161054542745, guid: 1789db187dafa5944bcdd0fcedb9d80a, type: 3}
+  - Prefab: {fileID: 8674512252461007754, guid: 3797924647c0aeb469e7d7220ea84823, type: 3}
     RatPrefabs: []
     MaxSpawnCount: 1
     Type: 1
@@ -159,6 +159,7 @@ MonoBehaviour:
     Type: 0
   spawnAreaX: 10
   spawnAreaZ: 10
+  birdSpawnHeight: 0
 --- !u!4 &69949166
 Transform:
   m_ObjectHideFlags: 0
@@ -589,7 +590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bce4deda766d243bded339b502d6ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cookie
-  totalCount: 0
+  totalCount: 15
+  cookieModel: {fileID: 5591493482016376802, guid: f0e98039d5000654491da691fd3097bc, type: 3}
 --- !u!4 &1427471636
 Transform:
   m_ObjectHideFlags: 0

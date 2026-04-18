@@ -457,6 +457,10 @@ PrefabInstance:
       propertyPath: spawnAreaZ
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
+      propertyPath: spawnDataList.Array.data[0].Prefab
+      value: 
+      objectReference: {fileID: 6171098161054542745, guid: 1789db187dafa5944bcdd0fcedb9d80a, type: 3}
     - target: {fileID: 2293248987164749275, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
