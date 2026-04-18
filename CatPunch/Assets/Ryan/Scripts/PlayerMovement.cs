@@ -31,12 +31,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator catAnimation;
     [SerializeField] private GameObject cat;
 
+    // Punch Impact UI
+    public Image punch_Eng;
+    public Image punch_Jpn;
+    private int displayCount;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked; // locks and hides cursor
         Cursor.visible = false;
         catAnimation.SetBool("Idle", true);
+
+        // Set impact active to false
+        punch_Eng.gameObject.SetActive(false);
+        punch_Jpn.gameObject.SetActive(false);
+        displayCount = 0;
     }
 
     //receiving input to move
@@ -107,6 +117,29 @@ public class PlayerMovement : MonoBehaviour
 
             catAnimation.SetBool("Idle", true);
             Debug.Log("Idle is set to " + catAnimation.GetBool("Idle"));
+
+            // Display Punch Impact UI - Start Coroutine
+            displayCount++;
+            StartCoroutine(DisplayPunchImpact());
+            
+        }
+    }
+
+    private IEnumerator DisplayPunchImpact()
+    {
+        // when display count is even
+        if(displayCount % 2 == 0)
+        {
+            punch_Jpn.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+            punch_Jpn.gameObject.SetActive(false);
+        }
+        // when display count is odd
+        else
+        {
+            punch_Eng.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+            punch_Eng.gameObject.SetActive(false);
         }
     }
 
