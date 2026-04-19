@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
 /// <summary>
-/// 生成ルールのインターフェース
+/// 生成ル?ルのイン??フェ?ス
 /// </summary>
 public interface ISpawnRule
 {
@@ -21,7 +19,7 @@ public interface ISpawnRule
 }
 
 /// <summary>
-/// ネズミの生成ルール(未完成)
+/// ネズ?の生成ル?ル(未完成)
 /// </summary>
 public class RatSpawnRule : ISpawnRule
 {
@@ -82,7 +80,7 @@ public class RatSpawnRule : ISpawnRule
 }
 
 /// <summary>
-/// 鳥の生成ルール(未完成)
+/// 鳥の生成ル?ル(未完成)
 /// </summary>
 public class BirdSpawnRule : ISpawnRule
 {
@@ -94,7 +92,7 @@ public class BirdSpawnRule : ISpawnRule
 
     public float GetNextSpawnInterval()
     {
-        // 鳥が取ったクッキー数*0.5だけ間隔を減らす
+        // 鳥が取ったクッキ?数*0.5だけ間隔を減らす
         var seconds = baseSpawnInterval - (StageManager.Instance.GetBirdStoleNum() * 0.5f);
 
         // 最低値保障
@@ -114,7 +112,7 @@ public class BirdSpawnRule : ISpawnRule
 }
 
 /// <summary>
-/// ネズミの生成変数(めっちゃキモいいつか直す)
+/// ネズ?の生成変数(めっちゃキモいいつか直す)
 /// </summary>
 public class RatSpawnValue
 {
