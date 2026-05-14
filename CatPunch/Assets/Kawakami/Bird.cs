@@ -37,10 +37,8 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     private void OnEnable()
     {
         Debug.Log("Bird Enabled!");
-
-        Startpos = transform.position;
-        TargetCookieComponent = StageManager.Instance.GetRandomCookie();
-        TargetCookie = TargetCookieComponent.transform;
+        StartCoroutine(birdDelay());
+       
 
         if (BirdRb != null)
         {
@@ -184,10 +182,15 @@ public class Bird : MonoBehaviour, IDespawnNotifier
             BirdRenderer.material.color = new Color(c.r, c.g, c.b, alpha);
             yield return null;
         }
-
-
         OnDespawn?.Invoke();
-        
 
+    }
+    IEnumerator birdDelay()
+    {
+        yield return null;
+
+        Startpos = transform.position;
+        TargetCookieComponent = StageManager.Instance.GetRandomCookie();
+        TargetCookie = TargetCookieComponent.transform;
     }
 }
