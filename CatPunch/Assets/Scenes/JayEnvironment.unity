@@ -497,11 +497,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
       propertyPath: spawnAreaX
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
       propertyPath: spawnAreaZ
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
       propertyPath: spawnDataList.Array.data[0].Prefab
