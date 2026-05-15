@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System.Linq;
+using System;
 
 /// <summary>
 /// Stageを管理するクラス
@@ -56,6 +55,11 @@ public class StageManager : MonoBehaviour
 
     public SoundManager soundManager {  get; private set; }
 
+    /// <summary>
+    /// クッキーの数UIを更新するイベント(On Update Cookie UI)
+    /// </summary>
+    public Action<int, int> OnUpdateCookieUI;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -100,6 +104,9 @@ public class StageManager : MonoBehaviour
         {
             cookies.Add(cookie);
         }
+
+        // クッキーの数UIを更新
+        OnUpdateCookieUI?.Invoke(GetTotalCookieCount(), GetAvailableCookieCount());
     }
 
     /// <summary>
@@ -143,13 +150,16 @@ public class StageManager : MonoBehaviour
     /// <returns></returns>
     public Cookie GetRandomCookie()
     {
-        int rand = Random.Range(0, cookies.Count);
+        int rand = UnityEngine.Random.Range(0, cookies.Count);
 
         return cookies[rand];
     }
 
     public void StolenCookie()
     {
+        // クッキーの数UIを更新
+        OnUpdateCookieUI?.Invoke(GetTotalCookieCount(), GetAvailableCookieCount());
+
         // クッキーが1つでも空じゃなければ終了
         for (int i = 0; i < cookies.Count; i++)
         {
@@ -161,5 +171,37 @@ public class StageManager : MonoBehaviour
 
         // 全て空ならゲームオーバー
         GameOver();
+    }
+
+    /// <summary>
+    /// 合計のクッキーの数を取得(Get the total number of cookies)
+    /// </summary>
+    /// <returns>合計のクッキー</returns>
+    private int GetTotalCookieCount()
+    {
+        int count = 0;
+
+        for (int i = 0; i < cookies.Count; i++)
+        {
+            count += cookies[i].TotalCount;
+        }
+
+        return count;
+    }
+
+    /// <summary>
+    /// 残りのクッキーの数を取得(Get the number of remaining cookies)
+    /// </summary>
+    /// <returns>残りのクッキー</returns>
+    private int GetAvailableCookieCount()
+    {
+        int count = 0;
+
+        for (int i = 0; i < cookies.Count; i++)
+        {
+            count += cookies[i].TotalCount - cookies[i].StolenCount;
+        }
+
+        return count;
     }
 }
