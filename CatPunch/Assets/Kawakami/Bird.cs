@@ -32,7 +32,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     void Awake()
     {
         BirdRb = GetComponent<Rigidbody>();
-        BirdRenderer = GetComponent<MeshRenderer>();
+        BirdRenderer = GetComponentInChildren<MeshRenderer>();
     }
     private void OnEnable()
     {
