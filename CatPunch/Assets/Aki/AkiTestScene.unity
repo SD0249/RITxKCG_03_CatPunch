@@ -869,6 +869,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
+      propertyPath: ratData
+      value: 
+      objectReference: {fileID: 11400000, guid: a0df4f983c1909344abcbbbcc50b8666, type: 2}
+    - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
+      propertyPath: birdData
+      value: 
+      objectReference: {fileID: 11400000, guid: 40fcb63c0a5ba40459a47202f592b178, type: 2}
     - target: {fileID: 2293248987164749275, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
       propertyPath: m_Name
       value: EnemySpawner

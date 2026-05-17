@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 /// <summary>
@@ -23,86 +24,80 @@ public interface ISpawnRule
 /// </summary>
 public class RatSpawnRule : ISpawnRule
 {
-    RatSpawnValue spawnValue;
+    RatData ratData;
 
-    public RatSpawnRule()
+    int levelNum;
+
+    LimitTimer timer;
+
+    public RatSpawnRule(RatData data)
     {
-        spawnValue = new RatSpawnValue();
+        timer = StageManager.Instance.Timer;
+
+        ratData = data;
+
+        levelNum = 0;
     }
 
     public float GetNextSpawnInterval()
     {
-        float nextInterval;
+        UpdateLevel();
 
-        var timer = StageManager.Instance.Timer;
-
-        float elapsed = timer.timeLimit - timer.currentTime;
-
-        if (elapsed < spawnValue.SecondLevelTime)
-        {
-            nextInterval = Random.Range(spawnValue.FirstLevelMinInterval,spawnValue.FirstLevelMaxInterval);
-        }
-        else if (elapsed < spawnValue.ThirdLevelTime)
-        {
-            nextInterval = Random.Range(spawnValue.SecondLevelMinInterval,spawnValue.SecondLevelMaxInterval);
-        }
-        else
-        {
-            nextInterval = Random.Range(spawnValue.ThirdLevelMinInterval,spawnValue.ThirdLevelMaxInterval);
-        }
-
-        return nextInterval;
+        // 現在のレベルに応じた生成間隔をランダムで取得(get next level time and compare with elapsed time)
+        return Random.Range(ratData.SpawnDataArray[levelNum].MinInterval, ratData.SpawnDataArray[levelNum].MaxInterval);
     }
 
     public int GetNextSpawnNum()
     {
-        int num;
+        UpdateLevel();
 
-        var timer = StageManager.Instance.Timer;
+        // 現在のレベルに応じた生成対数をランダムで取得(get next level time and compare with elapsed time)
+        return Random.Range(1, ratData.SpawnDataArray[levelNum].MaxSpawnNum + 1);
+    }
 
-        float limit = timer.timeLimit - timer.currentTime;
+    /// <summary>
+    /// レベルの更新
+    /// </summary>
+    private void UpdateLevel()
+    {
+        // 経過時間を取得(get elapsed time)
+        float elapsed = timer.timeLimit - timer.currentTime;
 
-        if (limit < spawnValue.SecondLevelTime)
+        // 経過時間が次のレベルに移行する時間を超えている場合、レベルを上げる
+        // (if elapsed time exceeds the time to transition to the next level, increase the level)
+        while (levelNum < ratData.SpawnDataArray.Length - 1
+            && elapsed >= ratData.SpawnDataArray[levelNum].NextLevelTime)
         {
-            num = Random.Range(1,spawnValue.FirstLevelMaxSpawnNum + 1);
+            levelNum++;
         }
-        else if (limit < spawnValue.ThirdLevelTime)
-        {
-            num = Random.Range(1, spawnValue.SecondLevelMaxSpawnNum + 1);
-        }
-        else
-        {
-            num = Random.Range(1, spawnValue.ThirdLevelMaxSpawnNum + 1);
-        }
-
-        return num;
     }
 }
 
 /// <summary>
-/// 鳥の生成ル?ル(未完成)
+/// 鳥の生成ルール(未完成)
 /// </summary>
 public class BirdSpawnRule : ISpawnRule
 {
-    private float baseSpawnInterval = 8.0f;
+    private BirdData birdData;
 
-    private float spawnIntervalRange = 1.0f;
-
-    private float minSpawnInterval = 2.0f;
+    public BirdSpawnRule(BirdData _birdData)
+    {
+        birdData = _birdData;
+    }
 
     public float GetNextSpawnInterval()
     {
         // 鳥が取ったクッキ?数*0.5だけ間隔を減らす
-        var seconds = baseSpawnInterval - (StageManager.Instance.GetBirdStoleNum() * 0.5f);
+        var seconds = birdData.BaseSpawnInterval - (StageManager.Instance.GetBirdStoleNum() * 0.5f);
 
         // 最低値保障
-        if (seconds < minSpawnInterval)
+        if (seconds < birdData.MinSpawnInterval)
         {
-            seconds = minSpawnInterval;
+            seconds = birdData.MinSpawnInterval;
         }
 
         // 時間計算
-        return Random.Range(seconds, seconds + spawnIntervalRange);
+        return Random.Range(seconds, seconds + birdData.SpawnIntervalRange);
     }
 
     public int GetNextSpawnNum()
