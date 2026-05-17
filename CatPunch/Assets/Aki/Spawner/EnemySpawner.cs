@@ -16,6 +16,18 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float birdSpawnHeight;
 
+    /// <summary>
+    /// 鳥のデータ
+    /// </summary>
+    [SerializeField]
+    private BirdData birdData;
+
+    /// <summary>
+    /// ネズミのデータ
+    /// </summary>
+    [SerializeField]
+    private RatData ratData;
+
     private SpawnPointProvider spawnPointProvider;
 
     private EnemyPool enemyPool;
@@ -45,6 +57,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+
         foreach (var runtime in runtimes)
         {
             runtime.Timer += Time.fixedDeltaTime;
@@ -71,10 +85,10 @@ public class EnemySpawner : MonoBehaviour
         switch (data.Type)
         {
             case SpawnerType.RAT:
-                return new RatSpawnRule();
+                return new RatSpawnRule(ratData);
 
             case SpawnerType.BIRD:
-                return new BirdSpawnRule();
+                return new BirdSpawnRule(birdData);
 
             default:
                 throw new System.Exception("Unknown enemy type");

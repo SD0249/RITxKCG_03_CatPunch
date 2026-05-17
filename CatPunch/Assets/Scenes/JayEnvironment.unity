@@ -628,6 +628,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2039061788}
     m_Modifications:
     - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
+      propertyPath: birdData
+      value: 
+      objectReference: {fileID: 11400000, guid: 40fcb63c0a5ba40459a47202f592b178, type: 2}
+    - target: {fileID: 218731027499411322, guid: f847cd2bb1216914187ebd29ec4d0278, type: 3}
       propertyPath: spawnAreaX
       value: 14
       objectReference: {fileID: 0}
