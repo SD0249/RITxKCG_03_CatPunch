@@ -24,6 +24,12 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
 
     public Renderer[] mouseRenderer;
 
+    // Sound
+    [SerializeField]
+    private EnemySound enemySound;
+
+    private bool isSpawnSound = false;
+
     public enum MouseState
     {
         Idle,  // Acts like a loading screen. When calculating the closest distance, and after returning to its starting position
@@ -39,7 +45,6 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
 
     }
 
@@ -47,7 +52,10 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     {
         currentState = MouseState.Idle;
         startingPos = gameObject.transform.position;    // This will only work when despawning is just disabling the mouse
-        if(MouseManager.Instance != null)
+
+        isSpawnSound = true;
+
+        if (MouseManager.Instance != null)
         MouseManager.Instance.RegisterMouse(this);
     }
 
@@ -59,6 +67,13 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
     // Update is called once per frame
     void Update()
     {
+        if(isSpawnSound)
+        {
+            // Play Spawn Sound
+            enemySound.PlaySE(Sound.SE.MOUSE_SPAWN);
+            isSpawnSound = false;
+        }
+
         switch(currentState)
         {
             case MouseState.Idle:
@@ -104,6 +119,9 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
                 {
                     Debug.Log("Reached Cookie");
                     mouseAnimator.SetFloat("Speed", 0f);
+
+                    // Play steal sound effect
+                    enemySound.PlaySE(Sound.SE.STEAL);
 
                     currentState = MouseState.Return;
                 }
@@ -260,6 +278,9 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
             // Direction away from player
             Vector3 knockbackDir = (transform.position - collision.transform.position.normalized);
 
+            // Play hit sound effect
+            enemySound.PlaySE(Sound.SE.MOUSE_HIT);
+
             // Allow smooth knockback
             StartCoroutine(KnockbackRoutine(knockbackDir, 3f, 0.2f));
 
@@ -274,6 +295,9 @@ public class Mouse : MonoBehaviour, IDespawnNotifier
 
         // Direction away from player
         Vector3 knockbackDir = (transform.position - playerPos);
+
+        // Play hit sound effect
+        enemySound.PlaySE(Sound.SE.MOUSE_HIT);
 
         // Allow smooth knockback
         StartCoroutine(KnockbackRoutine(knockbackDir, 3f, 0.2f));
