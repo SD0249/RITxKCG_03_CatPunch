@@ -18,6 +18,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     private Rigidbody BirdRb;// Rigidbodyコンポーネントの参照
     private Renderer BirdRenderer; // 鳥のレンダラー参照
 
+    private EnemySound enemySound; // 鳥のサウンド
 
     private enum BirdState
     {
@@ -33,6 +34,8 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     {
         BirdRb = GetComponent<Rigidbody>();
         BirdRenderer = GetComponentInChildren<MeshRenderer>();
+
+        enemySound = GetComponent<EnemySound>();
     }
     private void OnEnable()
     {
@@ -120,6 +123,10 @@ public class Bird : MonoBehaviour, IDespawnNotifier
             // クッキーを仮取得
             //Get a temporary cookie
             TargetCookieComponent.TryReserve();
+
+            // クッキーを盗んだ音を再生
+            enemySound.PlaySE(Sound.SE.STEAL);
+
             currentState = BirdState.Returning;
         }
     }

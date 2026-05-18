@@ -9,12 +9,15 @@ public class MainMenu : MonoBehaviour
     public Image controlPanel;
     public Image UIPanel;
 
+    private SoundManager soundManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        soundManager = GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -35,16 +38,25 @@ public class MainMenu : MonoBehaviour
 
     public void ClickStartButton()
     {
+        // Play click sound effect
+        soundManager.PlaySE(Sound.SE.CLICK);
+
         SceneManager.LoadScene("JayEnvironment");
     }
 
     public void ClickControlButton()
     {
+        // Play click sound effect
+        soundManager.PlaySE(Sound.SE.CLICK);
+
         controlPanel.gameObject.SetActive(true);
     }
 
     public void ClickCreditButton()
     {
+        // Play click sound effect
+        soundManager.PlaySE(Sound.SE.CLICK);
+
         UIPanel.gameObject.SetActive(true);
     }
 

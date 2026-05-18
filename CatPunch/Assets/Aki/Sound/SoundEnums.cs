@@ -7,6 +7,16 @@ namespace Sound
     {
         NONE = 0,
 
-        TEST,
+        PUNCH,
+
+        HIT_PUNCH,
+
+        CLICK,
+
+        STEAL,
+
+        MOUSE_SPAWN,
+
+        MOUSE_HIT,
     }
 }

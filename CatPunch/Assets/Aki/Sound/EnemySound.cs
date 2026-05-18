@@ -1,31 +1,22 @@
-using NUnit.Framework;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class KeyValuePair<TKey, TValue>
-{
-    public TKey Key;
-
-    public TValue Value;
-}
-
-public class SoundManager : MonoBehaviour
+public class EnemySound : MonoBehaviour
 {
     [SerializeField]
-    private List<KeyValuePair<Sound.SE,AudioClip>> seList;
+    private List<KeyValuePair<Sound.SE, AudioClip>> seList;
 
     [SerializeField]
     private AudioSource source;
 
-    private Dictionary<Sound.SE,AudioClip> seDic;
+    private Dictionary<Sound.SE, AudioClip> seDic;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         seDic = new();
 
-        foreach(var se in seList)
+        foreach (var se in seList)
         {
             seDic[se.Key] = se.Value;
         }

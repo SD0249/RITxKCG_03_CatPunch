@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     public Image punch_Jpn;
     private int displayCount;
 
+    // Sound
+    StageManager stageManager;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -48,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
         punch_Eng.gameObject.SetActive(false);
         punch_Jpn.gameObject.SetActive(false);
         displayCount = 0;
+
+        // Get the StageManager instance
+        stageManager = StageManager.Instance;
     }
 
     //receiving input to move
@@ -100,6 +106,9 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Idle is set to " + catAnimation.GetBool("Idle"));
             catAnimation.SetTrigger("Punch");
 
+            // Play punch sound effect
+            stageManager.soundManager.PlaySE(Sound.SE.PUNCH);
+
             //checks each enemy hit in attack range
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
             foreach (Collider enemy in hitEnemies)
@@ -114,6 +123,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     bird.HitPunch();
                 }
+
+                // Play hit punch sound effect
+                stageManager.soundManager.PlaySE(Sound.SE.HIT_PUNCH);
             }
 
             catAnimation.SetBool("Idle", true);
