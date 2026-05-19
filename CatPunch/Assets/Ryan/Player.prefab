@@ -224,7 +224,7 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -277,6 +277,7 @@ MonoBehaviour:
   speed: 5
   jumpHeight: 2
   gravity: -9.8
+  attackRange: 7
   fpCam: {fileID: 0}
   head: {fileID: 6152153734926240179}
   enemyLayers:
@@ -287,6 +288,8 @@ MonoBehaviour:
   slider: {fileID: 0}
   catAnimation: {fileID: 2189950397874925739}
   cat: {fileID: 7185799919260787752}
+  punch_Eng: {fileID: 0}
+  punch_Jpn: {fileID: 0}
 --- !u!114 &3217871586771878203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +463,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5534249610605373256}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnBackTitle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d5161d50-2375-4baf-8d8d-24967efa9a9f
+    m_ActionName: 'Gameplay/BackTitle[/Keyboard/b]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

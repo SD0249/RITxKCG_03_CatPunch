@@ -4130,10 +4130,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5289687214180992470, guid: 89f143daf0fb77a47923ebbce3ee4478, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
     - target: {fileID: 5534249610605373256, guid: 89f143daf0fb77a47923ebbce3ee4478, type: 3}
       propertyPath: fpCam
       value: 
@@ -5709,7 +5705,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7a30e333fb3922047b51d8b904f57cef, type: 3}
+  m_Resource: {fileID: 8300000, guid: c997e934d6099e340bd39863e4b28717, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
