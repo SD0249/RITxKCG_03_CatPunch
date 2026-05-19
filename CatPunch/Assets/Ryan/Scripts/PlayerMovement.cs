@@ -170,6 +170,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // returns to title screen when back button is pressed(Aki)
+    public void OnBackTitle(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            // Load the title screen scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
+    }
+
     public void SetStamina(float staminaValue)
     {
         slider.value = staminaValue; // Update the slider UI
