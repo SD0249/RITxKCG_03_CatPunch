@@ -62,3 +62,5 @@ MonoBehaviour:
   spawnAreaX: 10
   spawnAreaZ: 10
   birdSpawnHeight: 2.5
+  birdData: {fileID: 11400000, guid: 40fcb63c0a5ba40459a47202f592b178, type: 2}
+  ratData: {fileID: 11400000, guid: a0df4f983c1909344abcbbbcc50b8666, type: 2}
