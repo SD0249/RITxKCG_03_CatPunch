@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float gravity = -9.8f;
-    [SerializeField] private float attackRange = 7f;
+    [SerializeField] private float attackRange = 2f;
     [SerializeField] private GameObject fpCam;
     [SerializeField] private GameObject head;
     [SerializeField] private LayerMask enemyLayers;
