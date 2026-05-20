@@ -277,7 +277,7 @@ MonoBehaviour:
   speed: 5
   jumpHeight: 2
   gravity: -9.8
-  attackRange: 7
+  attackRange: 2
   fpCam: {fileID: 0}
   head: {fileID: 6152153734926240179}
   enemyLayers:
