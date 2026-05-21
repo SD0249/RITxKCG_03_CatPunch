@@ -19,7 +19,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
     private Renderer BirdRenderer; // 鳥のレンダラー参照
 
     private EnemySound enemySound; // 鳥のサウンド
-
+    private Animator birdAnimator;
     private enum BirdState
     {
         Approaching, // 接近
@@ -29,13 +29,18 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         Dead        // 死亡
     }
     private BirdState currentState = BirdState.Approaching;
-
+    
     void Awake()
     {
         BirdRb = GetComponent<Rigidbody>();
-        BirdRenderer = GetComponentInChildren<MeshRenderer>();
+        BirdRenderer = GetComponentInChildren<Renderer>();
 
         enemySound = GetComponent<EnemySound>();
+        birdAnimator = GetComponent<Animator>();
+        if (birdAnimator == null)
+        {
+            birdAnimator = GetComponentInChildren<Animator>();
+        }
     }
     private void OnEnable()
     {
@@ -60,7 +65,13 @@ public class Bird : MonoBehaviour, IDespawnNotifier
             BirdRenderer.material.color = new Color(c.r, c.g, c.b, 1.0f);
         }
         currentState = BirdState.Approaching;
+        if (birdAnimator != null)
+        {
+            birdAnimator.enabled = true;
+            birdAnimator.Play("CINEMA_4D_Principal", 0, 0f);
+        }
         Debug.Log("Bird state: Approaching");
+
     }
     void Update()
     {
@@ -160,6 +171,10 @@ public class Bird : MonoBehaviour, IDespawnNotifier
         }
         currentState = BirdState.Dead;
         BirdRb.isKinematic = false;
+        if (birdAnimator != null)
+        {
+            birdAnimator.enabled = false;
+        }
         StartCoroutine(DespawnRoutine());
        
     }
@@ -176,7 +191,7 @@ public class Bird : MonoBehaviour, IDespawnNotifier
           timer += 0.1f;
         }
 
-          BirdRenderer.enabled = true;
+      BirdRenderer.enabled = true;
        
         // 元の色情報の保存
         Color c = BirdRenderer.material.color;
