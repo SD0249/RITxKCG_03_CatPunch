@@ -16,12 +16,12 @@ MonoBehaviour:
   - MinInterval: 3
     MaxInterval: 4
     MaxSpawnNum: 1
-    NextLevelTime: 15
-  - MinInterval: 2
-    MaxInterval: 3
+    NextLevelTime: 10
+  - MinInterval: 1.8
+    MaxInterval: 2.6
     MaxSpawnNum: 2
-    NextLevelTime: 40
-  - MinInterval: 1
-    MaxInterval: 2
+    NextLevelTime: 28
+  - MinInterval: 0.9
+    MaxInterval: 1.6
     MaxSpawnNum: 3
     NextLevelTime: 1000
